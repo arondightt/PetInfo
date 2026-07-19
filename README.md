@@ -20,13 +20,13 @@ Qualquer pessoa que encontrar o animal escaneia o código com o celular → aces
 
 | Camada | Tecnologia |
 |---|---|
-| Front-end | HTML5, CSS3, Bootstrap 5, jQuery |
+| Web (BFF + Cliente) | Node.js, Express, HTML5, CSS3, jQuery |
 | Back-end API | PHP 8.2 + Slim 4 |
 | Banco de Dados | PostgreSQL (Supabase) |
 | Storage | Supabase Storage |
 | Container | Docker (Apache + PHP) |
-| Deploy API | Railway / Render |
-| Deploy Front | Vercel |
+| Deploy API | Fly.io (via GitHub Actions) |
+| Deploy Web | Vercel |
 
 ---
 
@@ -53,7 +53,7 @@ docker compose up -d
 
 # 4. Acesse
 # API:       http://localhost:8080
-# Front-end: abra web/index.html no navegador
+# Web:       Navegue até src/web/ ou inicie seu servidor Node
 ```
 
 ---
