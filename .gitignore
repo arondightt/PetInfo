@@ -7,7 +7,6 @@
 
 # Dependências PHP
 vendor/
-composer.lock
 
 # Uploads temporários
 src/api/public/uploads/
