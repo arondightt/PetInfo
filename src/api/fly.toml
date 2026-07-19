@@ -1,0 +1,29 @@
+# Configuração do Fly.io para a API PetTag
+# Deploy com: flyctl deploy --remote-only
+
+app = "pettag-api"          # troque pelo nome que você escolher no fly.io
+primary_region = "gru"      # São Paulo — mais perto dos usuários brasileiros
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = false   # IMPORTANTE: nunca dorme
+  auto_start_machines = true
+  min_machines_running = 1     # sempre 1 instância ativa
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 200
+    soft_limit = 150
+
+[[vm]]
+  size = "shared-cpu-1x"       # VM gratuita (256MB RAM)
+  memory = "256mb"
+
+# Variáveis de ambiente — configure via: flyctl secrets set KEY=VALUE
+# NÃO coloque valores reais aqui (este arquivo é commitado)
+[env]
+  APP_ENV = "production"

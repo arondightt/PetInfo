@@ -1,0 +1,31 @@
+# Gitignore — PetTag
+
+# Variáveis de ambiente (NUNCA commitar)
+.env
+*.env
+!.env.example
+
+# Dependências PHP
+vendor/
+composer.lock
+
+# Uploads temporários
+src/api/public/uploads/
+
+# Logs
+*.log
+logs/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker override local
+docker-compose.override.yml

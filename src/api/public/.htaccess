@@ -1,0 +1,13 @@
+# Redireciona TODAS as requisições para o index.php (Front Controller do Slim 4)
+# Sem isso, rotas como /api/perfil/abc404 retornariam "Not Found" do Apache
+# antes mesmo de chegar no PHP
+
+Options -MultiViews
+RewriteEngine On
+
+# Não redireciona arquivos ou diretórios que existem de verdade
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Manda tudo para o index.php
+RewriteRule ^ index.php [QSA,L]

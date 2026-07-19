@@ -1,0 +1,40 @@
+name: 📱 Build Mobile (Expo EAS)
+
+# Dispara SOMENTE quando arquivos em src/mobile/ mudarem
+# Fase futura — workflow preparado mas inativo até o mobile ser desenvolvido
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/mobile/**'
+
+jobs:
+  build:
+    name: 📦 Build com Expo EAS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        working-directory: src/mobile
+        run: npm install
+
+      - name: Instalar EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Build Android (APK preview)
+        working-directory: src/mobile
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: eas build --platform android --profile preview --non-interactive
+
+      - name: ✅ Build concluído
+        run: echo "Build mobile concluído! Verifique o painel do Expo."

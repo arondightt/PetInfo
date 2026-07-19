@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Usa o servidor embutido do PHP para dev — simples, sem configurar Apache
+    # Em produção (Fly.io) o Dockerfile inicia o Apache normalmente
+    command: php -S 0.0.0.0:8080 -t /var/www/html/public
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/var/www/html   # hot reload: edite o PHP, recarregue o browser
+    env_file:
+      - .env
+    restart: unless-stopped
+
+# Banco de dados: Supabase cloud (mesmo em desenvolvimento)
+# Configure as credenciais no src/api/.env
