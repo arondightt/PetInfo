@@ -9,8 +9,28 @@ const PHP_API_URL = process.env.PHP_API_URL || 'URL_NAO_CONFIGURADA';
 // O Node.js serve os arquivos estáticos (HTML/CSS)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Futuramente: aqui faremos as rotas do BFF escondendo a API PHP
-// app.post('/login', (req, res) => { ... conversa com o PHP e gera cookie ... })
+// Rota de teste: O navegador acessa o Node, e o Node acessa a API Interna!
+app.get('/api/status', async (req, res) => {
+  console.log("💻 [LOG DO SERVIDOR NODE] Recebemos um pedido na rota /api/status! Consultando API interna...");
+  try {
+      const response = await fetch(`${PHP_API_URL}/api/ping`);
+      const apiData = await response.json();
+      console.log("💻 [LOG DO SERVIDOR NODE] Sucesso! A API interna respondeu OK.");
+      
+      res.status(200).json({
+          success: true,
+          message: "Conexão com os serviços internos estabelecida com sucesso.",
+          data: apiData
+      });
+  } catch (error) {
+      console.error("💻 [LOG DO SERVIDOR NODE] Erro! Falha de comunicação com a API interna.", error.message);
+      res.status(500).json({ 
+          success: false,
+          message: "Serviço temporariamente indisponível.", 
+          data: null 
+      });
+  }
+});
 
 // Para rodar localmente no terminal
 if (process.env.NODE_ENV !== 'production') {
