@@ -1,7 +1,7 @@
 # Configuração do Fly.io para a API PetTag
 # Deploy com: flyctl deploy --remote-only
 
-app = "petinfo-api"          # troque pelo nome que você escolher no fly.io
+app = "petinfo-api-container"          # troque pelo nome que você escolher no fly.io
 primary_region = "gru"      # São Paulo — mais perto dos usuários brasileiros
 
 [build]
