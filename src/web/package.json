@@ -1,0 +1,12 @@
+{
+  "name": "petinfo-web-bff",
+  "version": "1.0.0",
+  "description": "BFF em Node.js para o Front-end do PetInfo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
