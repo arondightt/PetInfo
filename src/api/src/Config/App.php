@@ -6,7 +6,7 @@ use Dotenv\Dotenv;
 
 // Variáveis de ambiente
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
-$dotenv->load();
+$dotenv->safeLoad();
 
 // Cria o app Slim
 $app = AppFactory::create();
