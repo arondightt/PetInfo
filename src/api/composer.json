@@ -3,7 +3,7 @@
     "description": "API back-end da plataforma PetTag — PHP 8.2 + Slim 4",
     "license": "AGPL-3.0-only",
     "require": {
-        "php": "8.4.0",
+        "php": ">=8.2",
         "slim/slim": "4.15.2",
         "slim/psr7": "1.8.0",
         "firebase/php-jwt": "6.11.1",
