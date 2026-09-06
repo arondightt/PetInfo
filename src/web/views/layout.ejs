@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+    <!-- Arquivo CSS Global (Todas as páginas) -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- CSS Específico da Página (Injetado dinamicamente, se existir) -->
+    <% if (locals.style) { %>
+        <link rel="stylesheet" href="/assets/css/<%= style %>">
+    <% } %>
+</head>
+<body>
+    <div class="container">
+        <%- include(page) %>
+    </div>
+
+    <script type="module" src="/assets/js/global.js"></script>
+    <% if (locals.script) { %>
+        <script type="module" src="/assets/js/<%= script %>"></script>
+    <% } %>
+</body>
+</html>

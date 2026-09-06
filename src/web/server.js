@@ -3,49 +3,49 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// A URL da API fica escondida no servidor! O código no GitHub fica genérico.
 const PHP_API_URL = process.env.PHP_API_URL || 'URL_NAO_CONFIGURADA';
 
-// O Node.js serve os arquivos estáticos (HTML/CSS)
+// Configuração do Template Engine (EJS)
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Arquivos Estáticos (CSS, JS do Front)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota de teste: O navegador acessa o Node, e o Node acessa a API Interna!
-app.get('/api/status', async (req, res) => {
-  console.log("💻 [LOG DO SERVIDOR NODE] Recebemos um pedido na rota /api/status! Consultando API interna...");
-  try {
-      const response = await fetch(`${PHP_API_URL}/api/ping`);
-      const apiData = await response.json();
-      console.log("💻 [LOG DO SERVIDOR NODE] Sucesso! A API interna respondeu OK.");
-      
-      res.status(200).json({
-          success: true,
-          message: "Conexão com os serviços internos estabelecida com sucesso.",
-          data: apiData
-      });
-  } catch (error) {
-      console.error("💻 [LOG DO SERVIDOR NODE] Erro! Falha de comunicação com a API interna.", error.message);
-      res.status(500).json({ 
-          success: false,
-          message: "Serviço temporariamente indisponível.", 
-          data: null 
-      });
-  }
+// Rota Principal (Home)
+app.get('/', (req, res) => {
+    // Renderiza a view home passando qual JS ela deve auto-carregar
+    res.render('layout', { 
+        page: 'home', 
+        title: 'PetInfo - Início', 
+        script: 'home.js' 
+    });
+});
+
+// Rota Dinâmica do Pet (pet/:id)
+app.get('/pet/:id', (req, res) => {
+    const petId = req.params.id; // Captura o ID da URL
+    res.render('layout', { 
+        page: 'pet/profile', 
+        title: `Perfil do Pet #${petId}`, 
+        script: 'views/pet/profile.js', // JS isolado só para essa tela
+        petId: petId 
+    });
+});
+
+// Rota 401 - Não Autorizado
+app.get('/401', (req, res) => {
+    res.status(401).render('layout', { page: 'errors/401', title: 'Acesso Negado', script: null });
+});
+
+// Rota 404 (Sempre a última rota!)
+app.use((req, res) => {
+    res.status(404).render('layout', { page: 'errors/404', title: 'Página não encontrada', script: null });
 });
 
 // Para rodar localmente no terminal
 if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, async () => {
-    console.log(`🚀 BFF Front-end rodando na porta ${port}`);
-    console.log(`Tentando conectar na API PHP secreta...`);
-    try {
-        const response = await fetch(`${PHP_API_URL}/api/ping`);
-        const data = await response.json();
-        console.log(`✅ Status da API PHP retornado para o Node: ${data.status}`);
-    } catch (error) {
-        console.log(`❌ Erro ao falar com a API: Variável PHP_API_URL não configurada ou API offline.`);
-    }
-  });
+  app.listen(port, () => console.log(`🚀 BFF Front-end rodando na porta ${port}`));
 }
 
-// Exporta o app para a Vercel transformar em Serverless Function
 module.exports = app;

@@ -19,6 +19,14 @@ jobs:
       - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
+      - name: Instalar Dependências (Composer)
+        run: composer install --prefer-dist --no-progress
+        working-directory: src/api
+
+      - name: Rodar Testes Automatizados (PHPUnit)
+        run: vendor/bin/phpunit
+        working-directory: src/api
+
       - name: Deploy to Fly.io
         run: flyctl deploy --remote-only
         env:

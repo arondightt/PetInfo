@@ -4,9 +4,15 @@
   "description": "BFF em Node.js para o Front-end do PetInfo",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "4.18.2",
+    "ejs": "3.1.9"
+  },
+  "devDependencies": {
+    "jest": "29.0.0",
+    "supertest": "6.3.0"
   }
 }
