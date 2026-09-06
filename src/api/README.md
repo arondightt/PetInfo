@@ -5,6 +5,27 @@ Esta API é completamente desacoplada e se comunica com o front-end via JSON e a
 
 ---
 
+## 📁 Estrutura de Diretórios
+
+```text
+src/api/
+├── composer.json           ← Dependências do projeto (Slim, Firebase JWT)
+├── phpunit.xml             ← Configuração da suíte de testes automatizados
+├── .env.example            ← Exemplo de variáveis de ambiente
+├── src/                    ← Código-fonte da aplicação (Namespace App\)
+│   ├── Config/             ← Configurações e variáveis globais
+│   ├── Controllers/        ← Controladores das rotas (Lógica de requisição/resposta)
+│   ├── Helpers/            ← Classes utilitárias (ex: JwtToken.php)
+│   ├── Middleware/         ← Interceptadores de requisição (ex: validação JWT)
+│   ├── Models/             ← Lógica de banco de dados e objetos
+│   └── Database.php        ← Conexão PDO com o PostgreSQL (Supabase)
+└── tests/                  ← Testes automatizados (PHPUnit)
+    ├── PingTest.php        ← Testes de rota
+    └── JwtTokenTest.php    ← Testes unitários de autenticação
+```
+
+---
+
 ## 🛠️ Pré-requisitos para Desenvolvimento
 
 Para rodar ou dar manutenção nesta API na sua máquina local, você precisará ter instalado:
@@ -40,6 +61,16 @@ docker compose up -d
 ```
 A API estará acessível no seu navegador via: `http://localhost:8080`.
 *(O Docker já está mapeando a pasta atual, então qualquer alteração que você fizer no código PHP será atualizada instantaneamente, sem precisar reiniciar o contêiner).*
+
+---
+
+## 🧪 Rodando os Testes Automatizados (PHPUnit)
+
+A API possui uma suíte de testes unitários e E2E garantindo que o código não quebre. Para rodar os testes localmente:
+```bash
+vendor/bin/phpunit
+```
+Esses mesmos testes rodam automaticamente na esteira do GitHub Actions e bloqueiam o deploy em caso de falha.
 
 ---
 

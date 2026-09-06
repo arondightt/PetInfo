@@ -20,13 +20,13 @@ Qualquer pessoa que encontrar o animal escaneia o código com o celular → aces
 
 | Camada | Tecnologia |
 |---|---|
-| Web (BFF + Cliente) | Node.js, Express, HTML5, CSS3, jQuery |
+| Web (BFF + Cliente) | Node.js, Express, EJS (Template Engine), Vanilla JS, CSS3 |
 | Back-end API | PHP 8.2 + Slim 4 |
 | Banco de Dados | PostgreSQL (Supabase) |
 | Storage | Supabase Storage |
 | Container | Docker (Apache + PHP) |
-| Deploy API | Fly.io (via GitHub Actions) |
-| Deploy Web | Vercel |
+| Deploy API | Fly.io (Automático via GitHub Actions + Testes PHPUnit) |
+| Deploy Web | Vercel (CI Integrado + Testes Jest) |
 
 ---
 
